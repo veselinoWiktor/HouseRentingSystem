@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using static HouseRentingSystem.Infrastructure.Data.DataConstants.Agent;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+using static HouseRentingSystem.Infrastructure.Data.DataConstants.Agent;
 
 namespace HouseRentingSystem.Infrastructure.Data.Entities
 {

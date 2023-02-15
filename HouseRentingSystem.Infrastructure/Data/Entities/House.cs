@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using static HouseRentingSystem.Infrastructure.Data.DataConstants.House;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static HouseRentingSystem.Infrastructure.Data.DataConstants.House;
 
 namespace HouseRentingSystem.Infrastructure.Data.Entities
 {
