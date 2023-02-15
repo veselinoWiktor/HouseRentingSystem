@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using static HouseRentingSystem.Infrastructure.Data.DataConstants.House;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HouseRentingSystem.Infrastructure.Data.Entities
 {
@@ -29,6 +30,7 @@ namespace HouseRentingSystem.Infrastructure.Data.Entities
         public string ImageUrl { get; set; } = null!;
 
         [Required]
+        [Column(TypeName = "money")]
         [Range(MinPriceValue,MaxPriceValue)]
         public decimal PricePerMonth { get; set; }
 
