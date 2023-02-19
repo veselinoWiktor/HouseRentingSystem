@@ -1,21 +1,40 @@
-﻿using HouseRentingSystem.Core.Models.Home;
+﻿using HouseRentingSystem.Models.Home;
 using HouseRentingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using HouseRentingSystem.Core.Contracts;
 
 namespace HouseRentingSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IHouseService houseService;
+
+        public HomeController(IHouseService _houseService)
         {
-            return View(new IndexViewModel());
+            houseService = _houseService;
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Index()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var houses = await houseService.LastThreeHouses();
+
+            return View(houses);
+        }
+
+        public IActionResult Error(int statusCode)
+        {
+            if (statusCode == 400)
+            {
+                return View("Error400");
+            }
+
+            if (statusCode == 401)
+            {
+                return View("Error401");
+            }
+
+            return View();
         }
     }
 }

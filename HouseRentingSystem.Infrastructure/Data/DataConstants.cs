@@ -17,8 +17,8 @@
             public const int MaxDescriptionLength = 500;
             public const int MinDescriptionLength = 50;
 
-            public const int MaxPriceValue = 2000;
-            public const int MinPriceValue = 0;
+            public const double MaxPriceValue = 2000.00;
+            public const double MinPriceValue = 0.00;
         }
         public static class Agent
         {
