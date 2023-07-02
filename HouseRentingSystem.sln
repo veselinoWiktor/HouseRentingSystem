@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem", "HouseRentingSystem\HouseRentingSystem.csproj", "{3224184F-E470-4677-8E97-DE394EA58C39}"
+	ProjectSection(ProjectDependencies) = postProject
+		{401C962E-986B-446B-AAD9-EDA9278197DF} = {401C962E-986B-446B-AAD9-EDA9278197DF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.Core", "HouseRentingSystem.Core\HouseRentingSystem.Core.csproj", "{401C962E-986B-446B-AAD9-EDA9278197DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9DF611AC-D5DD-4835-AA3C-DDADD603A219} = {9DF611AC-D5DD-4835-AA3C-DDADD603A219}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.Infrastucture", "HouseRentingSystem.Infrastucture\HouseRentingSystem.Infrastucture.csproj", "{9DF611AC-D5DD-4835-AA3C-DDADD603A219}"
 EndProject
