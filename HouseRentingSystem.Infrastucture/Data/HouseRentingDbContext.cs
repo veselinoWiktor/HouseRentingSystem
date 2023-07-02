@@ -1,4 +1,5 @@
-﻿using HouseRentingSystem.Infrastucture.Data.Entities;
+﻿using HouseRentingSystem.Infrastucture.Data.Configurations;
+using HouseRentingSystem.Infrastucture.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,5 +18,15 @@ namespace HouseRentingSystem.Infrastucture.Data
         public DbSet<Category> Categories { get; init; } = null!;
 
         public DbSet<Agent> Agents { get; init; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new AgentConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new HouseConfiguration());
+
+            base.OnModelCreating(builder);
+        }
     }
 }
