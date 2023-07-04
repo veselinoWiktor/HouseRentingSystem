@@ -1,4 +1,5 @@
-﻿using HouseRentingSystem.Core.Models.House;
+﻿using HouseRentingSystem.Core.Models;
+using HouseRentingSystem.Core.Models.House;
 
 namespace HouseRentingSystem.Core.Contracts
 {
@@ -10,12 +11,22 @@ namespace HouseRentingSystem.Core.Contracts
 
         Task<bool> CategoryExists(int categoryId);
 
-        Task<int> Create(string title,
+        Task<int> Create(
+            string title,
             string address,
             string description,
             string imageUrl,
             decimal price,
             int categoryId,
             int agentId);
+
+        Task<HouseQueryServiceModel> All(
+            string? category = null,
+            string? searchTerm = null,
+            HouseSorting sorting = HouseSorting.Newest,
+            int currentPage = 1,
+            int housesPerPage = 1);
+
+        Task<IEnumerable<string>> AllCategoriesNames();
     }
 }
