@@ -1,4 +1,5 @@
 ﻿using HouseRentingSystem.Core.Contracts;
+using HouseRentingSystem.Core.Models.House;
 using HouseRentingSystem.Extensions;
 using HouseRentingSystem.Models.House;
 using Microsoft.AspNetCore.Authorization;
@@ -41,7 +42,22 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            return View(new AllHousesQueryModel());
+            IEnumerable<HouseServiceModel> myHouses = null;
+
+            var userId = this.User.Id();
+
+            if (await this.agentService.ExistsById(userId))
+            {
+                var currentAgentId = await this.agentService.GetAgentId(userId);
+
+                myHouses = await this.houseService.AllHousesByAgentId(currentAgentId);
+            }
+            else
+            {
+                myHouses = await this.houseService.AllHousesByUserId(userId);
+            }
+
+            return View(myHouses);
         }
 
         [HttpGet]
