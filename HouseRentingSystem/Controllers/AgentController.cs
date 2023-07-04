@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HouseRentingSystem.Core.Models.Agent;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HouseRentingSystem.Controllers
 {
+    [Authorize]
     public class AgentController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Become()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Become(BecomeAgentFormModel agent)
+        {
+            return RedirectToAction(nameof(HouseController.All), "House"); 
         }
     }
 }
