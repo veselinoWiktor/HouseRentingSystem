@@ -259,6 +259,19 @@ namespace HouseRentingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Leave(int id)
         {
+            if (!(await this.houseService.Exists(id)) ||
+                !(await this.houseService.IsRented(id)))
+            {
+                return BadRequest();
+            }
+
+            if (!(await this.houseService.IsRentedByUserWithId(id ,this.User.Id())))
+            {
+                return Unauthorized();
+            }
+
+            await this.houseService.Leave(id);
+
             return RedirectToAction(nameof(Mine));
         }
     }

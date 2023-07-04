@@ -289,5 +289,13 @@ namespace HouseRentingSystem.Core.Services
             house.RenterId = userId;
             await this.repo.SaveChangesAsync();
         }
+
+        public async Task Leave(int houseId)
+        {
+            var house = await this.repo.GetByIdAsync<House>(houseId);
+
+            house.RenterId = null;
+            await this.repo.SaveChangesAsync();
+        }
     }
 }
