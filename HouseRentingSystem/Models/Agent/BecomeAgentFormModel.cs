@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseRentingSystem.Core.Models.House
+namespace HouseRentingSystem.Models.Agent
 {
-    public class AllHousesQueryModel
+    public class BecomeAgentFormModel
     {
     }
 }
