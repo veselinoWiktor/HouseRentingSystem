@@ -125,13 +125,69 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return View(new HouseFormModel());
+            if (!(await this.houseService.Exists(id)))
+            {
+                return BadRequest();
+            }
+
+            if (!(await this.houseService.HasAgentWithId(id, this.User.Id())))
+            {
+                return Unauthorized();
+            }
+
+            var house = await this.houseService.HouseDetailById(id);
+
+            var houseCategoryId = await this.houseService.GetHouseCategoryId(house.Id);
+
+            var houseModel = new HouseFormModel()
+            {
+                Title = house.Title,
+                Address = house.Address,
+                Description = house.Description,
+                ImageUrl = house.ImageUrl,
+                PricePerMonth = house.PricePerMonth,
+                CategoryId = houseCategoryId,
+                Categories = await this.houseService.AllCategories(),
+            };
+
+            return View(houseModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, HouseFormModel house)
+        public async Task<IActionResult> Edit(int id, HouseFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = "1" });
+            if (!(await this.houseService.Exists(id)))
+            {
+                return this.View();
+            }
+
+            if (!(await this.houseService.HasAgentWithId(id, this.User.Id())))
+            {
+                return Unauthorized();
+            }
+
+            if (!(await this.houseService.CategoryExists(model.CategoryId)))
+            {
+                this.ModelState.AddModelError(nameof(model.CategoryId),
+                    "Category does not exists.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await this.houseService.AllCategories();
+
+                return View(model);
+            }
+
+            await this.houseService.Edit(id,
+                model.Title,
+                model.Address,
+                model.Description,
+                model.ImageUrl,
+                model.PricePerMonth,
+                model.CategoryId);
+
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         [HttpGet]

@@ -209,5 +209,49 @@ namespace HouseRentingSystem.Core.Services
                 })
                 .FirstAsync();
         }
+
+        public async Task Edit(
+            int houseId,
+            string title,
+            string address,
+            string description,
+            string imageUrl,
+            decimal price,
+            int categoryId)
+        {
+            var house = await this.repo.GetByIdAsync<House>(houseId);
+
+            house.Title = title;
+            house.Address = address;
+            house.Description = description;
+            house.ImageUrl = imageUrl;
+            house.PricePerMonth = price;
+            house.CategoryId = categoryId;
+
+            await this.repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> HasAgentWithId(int houseId, string currentUserId)
+        {
+            var house = await this.repo.GetByIdAsync<House>(houseId);
+            var agent = await this.repo.AllReadonly<Agent>().FirstOrDefaultAsync(a => a.Id == house.AgentId);
+
+            if (agent == null)
+            {
+                return false;
+            }
+
+            if (agent.UserId != currentUserId)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<int> GetHouseCategoryId(int houseId)
+        {
+            return (await this.repo.GetByIdAsync<House>(houseId)).CategoryId;
+        }
     }
 }
