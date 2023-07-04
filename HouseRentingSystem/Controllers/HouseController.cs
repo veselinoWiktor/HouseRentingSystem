@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HouseRentingSystem.Core.Models.House;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HouseRentingSystem.Controllers
 {
     public class HouseController : Controller
     {
-        public IActionResult Index()
+        
+        public async Task<IActionResult> All()
         {
-            return View();
+            return View(new AllHousesQueryModel());
         }
     }
 }
