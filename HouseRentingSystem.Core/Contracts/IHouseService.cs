@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HouseRentingSystem.Core.Models.House;
 
 namespace HouseRentingSystem.Core.Contracts
 {
-    public class IHouseService
+    public interface IHouseService
     {
+        IEnumerable<HouseIndexServiceModel> LastThreeHouses();
     }
 }

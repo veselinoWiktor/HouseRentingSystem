@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HouseRentingSystem.Infrastucture.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
@@ -26,7 +27,7 @@ namespace BeautySaloon.Infrastructure.Data.Common
             return this.Context.Set<T>();
         }
 
-        public Repository(BeautySaloonDbContext context)
+        public Repository(HouseRentingDbContext context)
         {
             Context = context;
         }
