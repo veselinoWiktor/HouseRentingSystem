@@ -1,6 +1,7 @@
 ﻿using BeautySaloon.Infrastructure.Data.Common;
 using HouseRentingSystem.Core.Contracts;
 using HouseRentingSystem.Core.Models;
+using HouseRentingSystem.Core.Models.Agent;
 using HouseRentingSystem.Core.Models.House;
 using HouseRentingSystem.Infrastucture.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -178,6 +179,35 @@ namespace HouseRentingSystem.Core.Services
                 })
                 .Take(3)
                 .ToListAsync();
+        }
+
+        public async Task<bool> Exists(int id)
+        {
+            return await this.repo.AllReadonly<House>()
+                .AnyAsync(h => h.Id == id);
+        }
+
+        public async Task<HouseDetailsServiceModel> HouseDetailById(int id)
+        {
+            return await this.repo.AllReadonly<House>()
+                .Where(h => h.Id == id)
+                .Select(h => new HouseDetailsServiceModel()
+                {
+                    Id = h.Id,
+                    Title = h.Title,
+                    Address = h.Address,
+                    Description = h.Description,
+                    ImageUrl = h.ImageUrl,
+                    PricePerMonth = h.PricePerMonth,
+                    Category = h.Category.Name,
+                    IsRented = h.RenterId != null,
+                    Agent = new AgentServiceModel()
+                    {
+                        PhoneNumber = h.Agent.PhoneNumber,
+                        Email = h.Agent.User.Email
+                    }
+                })
+                .FirstAsync();
         }
     }
 }
