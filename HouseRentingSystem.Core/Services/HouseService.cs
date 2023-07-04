@@ -259,5 +259,35 @@ namespace HouseRentingSystem.Core.Services
             await this.repo.DeleteAsync<House>(houseId);
             await this.repo.SaveChangesAsync();
         }
+
+        public async Task<bool> IsRented(int id)
+        {
+            return (await this.repo.GetByIdAsync<House>(id)).RenterId != null;
+        }
+
+        public async Task<bool> IsRentedByUserWithId(int houseId, string userId)  
+        {
+            var house = await this.repo.GetByIdAsync<House>(houseId);
+
+            if (house == null)
+            {
+                return false;
+            }
+
+            if (house.RenterId != userId)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task Rent(int houseId, string userId)
+        {
+            var house = await this.repo.GetByIdAsync<House>(houseId);
+
+            house.RenterId = userId;
+            await this.repo.SaveChangesAsync();
+        }
     }
 }
