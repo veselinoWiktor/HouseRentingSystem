@@ -20,6 +20,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddEntityFrameworkStores<HouseRentingDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddApplicationServices();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
