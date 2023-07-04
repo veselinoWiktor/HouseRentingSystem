@@ -193,12 +193,43 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            return View(new HouseDetailsViewModel());
+            if (!(await this.houseService.Exists(id)))
+            {
+                return BadRequest();
+            }
+
+            if (!(await this.houseService.HasAgentWithId(id, this.User.Id())))
+            {
+                return Unauthorized();
+            }
+
+            var house = await this.houseService.HouseDetailById(id);
+
+            var model = new HouseDetailsViewModel()
+            {
+                Title = house.Title,
+                Address = house.Address,
+                ImageUrl = house.ImageUrl,
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(HouseDetailsViewModel house)
+        public async Task<IActionResult> Delete(HouseDetailsViewModel model)
         {
+            if (!(await this.houseService.Exists(model.Id)))
+            {
+                return BadRequest();
+            }
+
+            if (!(await this.houseService.HasAgentWithId(model.Id, this.User.Id())))
+            {
+                return Unauthorized();
+            }
+
+            await this.houseService.Delete(model.Id);
+
             return RedirectToAction(nameof(All));
         }
 

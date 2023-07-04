@@ -253,5 +253,11 @@ namespace HouseRentingSystem.Core.Services
         {
             return (await this.repo.GetByIdAsync<House>(houseId)).CategoryId;
         }
+
+        public async Task Delete(int houseId)
+        {
+            await this.repo.DeleteAsync<House>(houseId);
+            await this.repo.SaveChangesAsync();
+        }
     }
 }
