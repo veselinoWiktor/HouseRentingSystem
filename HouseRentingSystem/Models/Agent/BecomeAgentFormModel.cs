@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static HouseRentingSystem.Infrastucture.Data.DataConstants.Agent;
+using static HouseRentingSystem.Infrastructure.Data.DataConstants.Agent;
 
 namespace HouseRentingSystem.Models.Agent
 {

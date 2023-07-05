@@ -1,8 +1,8 @@
 ﻿using HouseRentingSystem.Core.Contracts;
 using HouseRentingSystem.Core.Models.Statistics;
+using HouseRentingSystem.Infrastructure.Common;
 using HouseRentingSystem.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using HouseRentingSystem.Infrastructure.Common;
 
 namespace HouseRentingSystem.Core.Services
 {
@@ -17,7 +17,19 @@ namespace HouseRentingSystem.Core.Services
 
         public async Task<StatisticsServiceModel> Total()
         {
-            var totalHouses = await this.repo.AllReadonly<House>().CountAsync();
+            var totalHouses = await this.repo
+                .AllReadonly<House>()
+                .CountAsync();
+            var totalRents = await this.repo
+                .AllReadonly<House>()
+                .Where(h => h.RenterId != null)
+                .CountAsync();
+
+            return new StatisticsServiceModel()
+            {
+                TotalHouses = totalHouses,
+                TotalRents = totalRents,
+            };
         }
     }
 }

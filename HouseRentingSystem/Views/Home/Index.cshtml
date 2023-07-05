@@ -15,7 +15,7 @@
         </p>
         <hr class="my-4">
         <p class="lead">
-            @if (this.User.Identity.IsAuthenticated)
+            @if (this.User.Identity != null && this.User.Identity.IsAuthenticated)
             {
                 <a asp-controller="Houses" asp-action="Add" class="btn btn-primary btn-lg"
            role="button">Add House</a>
@@ -53,3 +53,30 @@
     </button>
 </div>
 
+<div class="mb-5"></div>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<div class="mt-4 p-5 bg-light d-none" id="statistics">
+    <div class="row">
+        <h2 class="col-md-6 text-center" id="total-houses"></h2>
+        <h2 class="col-md-6 text-center" id="total-rents"></h2>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('https://localhost:7223/api/statistics', (data) => {
+                $('#total-houses').text(data.totalHouses + " Houses");
+                $('#total-rents').text(data.totalRents + " Rents");
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            })
+        })
+    </script>
+}

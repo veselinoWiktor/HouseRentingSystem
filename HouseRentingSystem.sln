@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Core", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Infrastructure", "HouseRentingSystem.Infrastucture\HouseRentingSystem.Infrastructure.csproj", "{9DF611AC-D5DD-4835-AA3C-DDADD603A219}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.WebApi", "HouseRentingSystem.WebApi\HouseRentingSystem.WebApi.csproj", "{BC37125A-2AD2-4F3D-9923-0223B7F2C5A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{401C962E-986B-446B-AAD9-EDA9278197DF} = {401C962E-986B-446B-AAD9-EDA9278197DF}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +38,10 @@ Global
 		{9DF611AC-D5DD-4835-AA3C-DDADD603A219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DF611AC-D5DD-4835-AA3C-DDADD603A219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DF611AC-D5DD-4835-AA3C-DDADD603A219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC37125A-2AD2-4F3D-9923-0223B7F2C5A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC37125A-2AD2-4F3D-9923-0223B7F2C5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC37125A-2AD2-4F3D-9923-0223B7F2C5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC37125A-2AD2-4F3D-9923-0223B7F2C5A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

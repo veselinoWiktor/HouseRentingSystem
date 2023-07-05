@@ -1,6 +1,6 @@
 ﻿using HouseRentingSystem.Core.Services;
 using HouseRentingSystem.Core.Contracts;
-using BeautySaloon.Infrastructure.Data.Common;
+using HouseRentingSystem.Infrastructure.Common;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

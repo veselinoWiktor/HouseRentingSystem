@@ -1,12 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApplicationServices();
+builder.Services.AddHouseRentingDbContext(builder.Configuration);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("all", opt =>
+    options.AddPolicy("all" ,opt =>
     {
         opt.AllowAnyOrigin();
         opt.AllowAnyMethod();
@@ -21,6 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("all");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
