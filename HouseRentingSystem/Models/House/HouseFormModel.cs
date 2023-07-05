@@ -4,7 +4,7 @@ using static HouseRentingSystem.Infrastructure.Data.DataConstants.House;
 
 namespace HouseRentingSystem.Models.House
 {
-    public class HouseFormModel
+    public class HouseFormModel : IHouseModel
     {
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]

@@ -176,6 +176,7 @@ namespace HouseRentingSystem.Core.Services
                     Id = h.Id,
                     Title = h.Title,
                     ImageUrl = h.ImageUrl,
+                    Address = h.Address
                 })
                 .Take(3)
                 .ToListAsync();

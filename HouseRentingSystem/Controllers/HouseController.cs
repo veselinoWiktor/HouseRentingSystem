@@ -4,6 +4,7 @@ using HouseRentingSystem.Extensions;
 using HouseRentingSystem.Models.House;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace HouseRentingSystem.Controllers
 {
@@ -42,7 +43,7 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
-            IEnumerable<HouseServiceModel> myHouses = null;
+            IEnumerable<HouseServiceModel> myHouses;
 
             var userId = this.User.Id();
 
@@ -62,7 +63,7 @@ namespace HouseRentingSystem.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if (!(await this.houseService.Exists(id)))
             {
@@ -70,6 +71,11 @@ namespace HouseRentingSystem.Controllers
             }
 
             var houseModel = await this.houseService.HouseDetailById(id);
+
+            if (information != houseModel.GetInformation())
+            {
+                return BadRequest();
+            }
 
             return View(houseModel);
         }
@@ -119,7 +125,7 @@ namespace HouseRentingSystem.Controllers
                 model.CategoryId,
                 agentId);
 
-            return RedirectToAction(nameof(Details), new { id = newHouseId });
+            return RedirectToAction(nameof(Details), new { id = newHouseId, information = model.GetInformation() });
         }
 
         [HttpGet]
@@ -187,7 +193,7 @@ namespace HouseRentingSystem.Controllers
                 model.PricePerMonth,
                 model.CategoryId);
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction(nameof(Details), new { id = id, information = model.GetInformation() });
         }
 
         [HttpGet]

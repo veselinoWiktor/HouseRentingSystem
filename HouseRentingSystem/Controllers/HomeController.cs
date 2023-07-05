@@ -1,5 +1,4 @@
-﻿using HouseRentingSystem.Models.Home;
-using HouseRentingSystem.Models;
+﻿using HouseRentingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using HouseRentingSystem.Core.Contracts;

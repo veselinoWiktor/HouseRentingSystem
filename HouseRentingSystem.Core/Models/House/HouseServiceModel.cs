@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HouseRentingSystem.Core.Models.House
 {
-    public class HouseServiceModel
+    public class HouseServiceModel : IHouseModel
     {
         public int Id { get; init; }
 
