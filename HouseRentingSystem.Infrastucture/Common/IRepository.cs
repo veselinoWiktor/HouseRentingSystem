@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace BeautySaloon.Infrastructure.Data.Common
+namespace HouseRentingSystem.Infrastructure.Common
 {
     /// <summary>
     /// Abstraction of repository access methods

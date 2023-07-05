@@ -1,9 +1,9 @@
-﻿using HouseRentingSystem.Infrastucture.Data.Configurations;
-using HouseRentingSystem.Infrastucture.Data.Entities;
+﻿using HouseRentingSystem.Infrastructure.Data.Configurations;
+using HouseRentingSystem.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HouseRentingSystem.Infrastucture.Data
+namespace HouseRentingSystem.Infrastructure.Data
 {
     public class HouseRentingDbContext : IdentityDbContext
     {

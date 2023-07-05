@@ -1,4 +1,4 @@
-﻿namespace HouseRentingSystem.Infrastucture.Data
+﻿namespace HouseRentingSystem.Infrastructure.Data
 {
     public static class DataConstants
     {

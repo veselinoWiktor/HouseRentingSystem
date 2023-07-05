@@ -1,6 +1,6 @@
-﻿using BeautySaloon.Infrastructure.Data.Common;
+﻿using HouseRentingSystem.Infrastructure.Common;
 using HouseRentingSystem.Core.Contracts;
-using HouseRentingSystem.Infrastucture.Data.Entities;
+using HouseRentingSystem.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

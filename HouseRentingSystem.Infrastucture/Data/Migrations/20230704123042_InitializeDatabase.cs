@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HouseRentingSystem.Infrastucture.Data.Migrations
+namespace HouseRentingSystem.Infrastructure.Data.Migrations
 {
     public partial class InitializeDatabase : Migration
     {

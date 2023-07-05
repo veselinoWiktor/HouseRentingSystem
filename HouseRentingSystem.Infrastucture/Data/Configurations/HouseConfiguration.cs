@@ -1,4 +1,4 @@
-﻿using HouseRentingSystem.Infrastucture.Data.Entities;
+﻿using HouseRentingSystem.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseRentingSystem.Infrastucture.Data.Configurations
+namespace HouseRentingSystem.Infrastructure.Data.Configurations
 {
     public class HouseConfiguration : IEntityTypeConfiguration<House>
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HouseRentingSystem.Infrastucture.Data.Configurations
+namespace HouseRentingSystem.Infrastructure.Data.Configurations
 {
     public class AgentConfiguration : IEntityTypeConfiguration<Agent>
     {

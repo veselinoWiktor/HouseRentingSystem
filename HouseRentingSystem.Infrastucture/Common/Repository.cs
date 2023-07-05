@@ -1,9 +1,9 @@
-﻿using HouseRentingSystem.Infrastucture.Data;
+﻿using HouseRentingSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
-namespace BeautySaloon.Infrastructure.Data.Common
+namespace HouseRentingSystem.Infrastructure.Common
 {
     /// <summary>
     /// Implementation of repository access methods
