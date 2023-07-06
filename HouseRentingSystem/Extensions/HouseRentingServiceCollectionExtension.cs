@@ -11,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<IAgentService, AgentService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
 
             return services;
         }
