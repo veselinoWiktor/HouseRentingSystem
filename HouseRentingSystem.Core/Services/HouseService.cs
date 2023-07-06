@@ -17,10 +17,12 @@ namespace HouseRentingSystem.Core.Services
     public class HouseService : IHouseService
     {
         private readonly IRepository repo;
+        private readonly IUserService userService;
 
-        public HouseService(IRepository repo)
+        public HouseService(IRepository repo, IUserService userService)
         {
             this.repo = repo;
+            this.userService = userService;
         }
 
         public async Task<HouseQueryServiceModel> All(
@@ -190,9 +192,9 @@ namespace HouseRentingSystem.Core.Services
 
         public async Task<HouseDetailsServiceModel> HouseDetailById(int id)
         {
-            return await this.repo.AllReadonly<House>()
+            var house = await this.repo.AllReadonly<House>()
                 .Where(h => h.Id == id)
-                .Select(h => new HouseDetailsServiceModel()
+                .Select( h =>  new HouseDetailsServiceModel()
                 {
                     Id = h.Id,
                     Title = h.Title,
@@ -209,6 +211,12 @@ namespace HouseRentingSystem.Core.Services
                     }
                 })
                 .FirstAsync();
+
+            var agentId = (await this.repo.AllReadonly<House>()
+                .Where(h => h.Id == id).Include(h => h.Agent).FirstAsync()).Agent.UserId;
+            house.Agent.FullName = await this.userService.UserFullName(agentId);
+
+            return house;
         }
 
         public async Task Edit(
