@@ -42,5 +42,7 @@ namespace HouseRentingSystem.Infrastructure.Data.Entities
         public Agent Agent { get; set; } = null!;
 
         public string? RenterId { get; set; }
+
+        public User Renter { get; set; } = null!;
     }
 }

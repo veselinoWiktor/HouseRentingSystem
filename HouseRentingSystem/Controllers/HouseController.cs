@@ -48,6 +48,11 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
+            if (this.User.IsAdmin())
+            {
+                return RedirectToAction("Mine", "House", new { area = "Admin" });
+            }
+
             IEnumerable<HouseServiceModel> myHouses;
 
             var userId = this.User.Id();

@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using static HouseRentingSystem.Infrastructure.Data.DataConstants.Admin;
+using static HouseRentingSystem.Areas.Admin.AdminConstants;
 
 namespace HouseRentingSystem.Extensions
 {

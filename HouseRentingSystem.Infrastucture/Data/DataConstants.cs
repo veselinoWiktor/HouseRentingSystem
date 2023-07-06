@@ -37,10 +37,6 @@
             public const int LastNameMinLength = 3;
         }
 
-        public static class Admin
-        {
-            public const string AdminRoleName = "Administrator";
-            public const string AdminEmail = "admin@mail.com";
-        }
+       
     }
 }
