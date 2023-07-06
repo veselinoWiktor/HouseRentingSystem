@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static HouseRentingSystem.Infrastructure.Data.DataConstants.Admin;
 
 namespace HouseRentingSystem.Infrastructure.Data.Configurations
 {
@@ -45,6 +46,20 @@ namespace HouseRentingSystem.Infrastructure.Data.Configurations
 
             user.PasswordHash = hasher.HashPassword(user, "guest123");
             users.Add(user);
+
+            var admin = new User()
+            {
+                Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
+                Email = AdminEmail,
+                NormalizedEmail = AdminEmail,
+                UserName = AdminEmail,
+                NormalizedUserName = AdminEmail,
+                FirstName = "Great",
+                LastName = "Admin"
+            };
+
+            admin.PasswordHash = hasher.HashPassword(admin, "admin123");
+            users.Add(admin);
 
             return users;
         }
