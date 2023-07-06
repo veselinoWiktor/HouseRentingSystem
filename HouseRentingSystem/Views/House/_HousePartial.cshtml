@@ -28,8 +28,8 @@
                 }
 
                 <p></p>
-                @if (!Model.IsRented && !(await this.agentService.ExistsById(this.User.Id()))
-                && this.User.IsAdmin())
+                @if (!Model.IsRented && (!(await this.agentService.ExistsById(this.User.Id()))
+                || this.User.IsAdmin()))
                 {
                     <form class="input-group-sm" asp-controller="House"
                   asp-action="Rent" asp-route-id="@Model.Id" method="post">
