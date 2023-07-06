@@ -1,3 +1,5 @@
+using HouseRentingSystem.Controllers;
+using HouseRentingSystem.Core.Contracts;
 using HouseRentingSystem.Extensions;
 using HouseRentingSystem.Infrastructure.Data;
 using HouseRentingSystem.Infrastructure.Data.Entities;
@@ -29,6 +31,9 @@ builder.Services.AddControllersWithViews()
     });
 
 builder.Services.AddApplicationServices();
+builder.Services.AddAutoMapper(
+    typeof(IHouseService).Assembly,
+    typeof(HomeController).Assembly);
 
 var app = builder.Build();
 

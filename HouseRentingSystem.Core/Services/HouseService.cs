@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace HouseRentingSystem.Core.Services
 {
@@ -18,11 +20,13 @@ namespace HouseRentingSystem.Core.Services
     {
         private readonly IRepository repo;
         private readonly IUserService userService;
+        private readonly IMapper mapper;
 
-        public HouseService(IRepository repo, IUserService userService)
+        public HouseService(IRepository repo, IUserService userService, IMapper mapper)
         {
             this.repo = repo;
             this.userService = userService;
+            this.mapper = mapper;
         }
 
         public async Task<HouseQueryServiceModel> All(
@@ -63,15 +67,7 @@ namespace HouseRentingSystem.Core.Services
             var houses = await houseQuery
                 .Skip((currentPage - 1) * housesPerPage)
                 .Take(housesPerPage)
-                .Select(h => new HouseServiceModel()
-                {
-                    Id = h.Id,
-                    Title = h.Title,
-                    Address = h.Address,
-                    ImageUrl = h.ImageUrl,
-                    IsRented = h.RenterId != null,
-                    PricePerMonth = h.PricePerMonth
-                })
+                .ProjectTo<HouseServiceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
 
             var totalHouses = await houseQuery.CountAsync();
@@ -86,11 +82,7 @@ namespace HouseRentingSystem.Core.Services
         public async Task<IEnumerable<HouseCategorySeviceModel>> AllCategories()
         {
             return await repo.AllReadonly<Category>()
-                .Select(c => new HouseCategorySeviceModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                })
+                .ProjectTo<HouseCategorySeviceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
@@ -104,37 +96,18 @@ namespace HouseRentingSystem.Core.Services
 
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByAgentId(int agentId)
         {
-            var houses = await this.repo.AllReadonly<House>()
+            return await this.repo.AllReadonly<House>()
                 .Where(h => h.AgentId == agentId)
+                .ProjectTo<HouseServiceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return ProjectToModel(houses);
         }
 
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByUserId(string userId)
         {
-            var houses = await this.repo.AllReadonly<House>()
+            return await this.repo.AllReadonly<House>()
                 .Where(h => h.RenterId == userId)
+                .ProjectTo<HouseServiceModel>(this.mapper.ConfigurationProvider)
                 .ToListAsync();
-
-            return ProjectToModel(houses);
-        }
-
-        private List<HouseServiceModel> ProjectToModel(List<House> houses)
-        {
-            var resultHouses = houses
-                .Select(h => new HouseServiceModel()
-                {
-                    Id = h.Id,
-                    Title = h.Title,
-                    Address = h.Address,
-                    ImageUrl = h.ImageUrl,
-                    PricePerMonth = h.PricePerMonth,
-                    IsRented = h.RenterId != null
-                }).
-                ToList();
-
-            return resultHouses;
         }
 
         public async Task<bool> CategoryExists(int categoryId)
@@ -173,13 +146,7 @@ namespace HouseRentingSystem.Core.Services
         {
             return await repo.AllReadonly<House>()
                 .OrderByDescending(h => h.Id)
-                .Select(h => new HouseIndexServiceModel()
-                {
-                    Id = h.Id,
-                    Title = h.Title,
-                    ImageUrl = h.ImageUrl,
-                    Address = h.Address
-                })
+                .ProjectTo<HouseIndexServiceModel>(this.mapper.ConfigurationProvider)
                 .Take(3)
                 .ToListAsync();
         }
@@ -194,22 +161,7 @@ namespace HouseRentingSystem.Core.Services
         {
             var house = await this.repo.AllReadonly<House>()
                 .Where(h => h.Id == id)
-                .Select( h =>  new HouseDetailsServiceModel()
-                {
-                    Id = h.Id,
-                    Title = h.Title,
-                    Address = h.Address,
-                    Description = h.Description,
-                    ImageUrl = h.ImageUrl,
-                    PricePerMonth = h.PricePerMonth,
-                    Category = h.Category.Name,
-                    IsRented = h.RenterId != null,
-                    Agent = new AgentServiceModel()
-                    {
-                        PhoneNumber = h.Agent.PhoneNumber,
-                        Email = h.Agent.User.Email
-                    }
-                })
+                .ProjectTo<HouseDetailsServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstAsync();
 
             var agentId = (await this.repo.AllReadonly<House>()

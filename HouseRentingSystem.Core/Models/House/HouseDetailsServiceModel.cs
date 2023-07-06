@@ -8,6 +8,6 @@ namespace HouseRentingSystem.Core.Models.House
 
         public string Category { get; init; } = null!;
 
-        public AgentServiceModel Agent { get; init; } = null!;
+        public AgentServiceModel Agent { get; set; } = null!;
     }
 }
