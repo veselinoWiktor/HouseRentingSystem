@@ -1,3 +1,4 @@
+using HouseRentingSystem.Extensions;
 using HouseRentingSystem.Infrastructure.Data;
 using HouseRentingSystem.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HouseRentingDbContext>();
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
@@ -29,6 +31,8 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
+
+app.SeedAdmin();
 
 if (app.Environment.IsDevelopment())
 {
