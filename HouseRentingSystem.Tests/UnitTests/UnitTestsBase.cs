@@ -18,7 +18,7 @@ namespace HouseRentingSystem.Tests.UnitTests
         public void SetUpBase()
         {
             this.repo = new Repository(DatabaseMock.Instance);
-            Task.Run(async () => await this.SeedDataBase());
+            this.SeedDataBase();
         }
 
         [OneTimeTearDown]
@@ -33,7 +33,7 @@ namespace HouseRentingSystem.Tests.UnitTests
 
         public House RenterHouse { get; private set; } = null!; 
 
-        private async Task SeedDataBase()
+        private void SeedDataBase()
         {
             this.Renter = new User()
             {
@@ -42,7 +42,7 @@ namespace HouseRentingSystem.Tests.UnitTests
                 FirstName = "Renter",
                 LastName = "User"
             };
-            await this.repo.AddAsync(this.Renter);
+            this.repo.Add(this.Renter);
 
             this.Agent = new Agent()
             {
@@ -55,7 +55,7 @@ namespace HouseRentingSystem.Tests.UnitTests
                     LastName = "Tester"
                 }
             };
-            await this.repo.AddAsync(this.Agent);
+            this.repo.Add(this.Agent);
 
             this.RenterHouse = new House()
             {
@@ -67,7 +67,7 @@ namespace HouseRentingSystem.Tests.UnitTests
                 Agent = this.Agent,
                 Category = new Category() { Name = "Cottage" },
             };
-            await this.repo.AddAsync(this.RenterHouse);
+            this.repo.Add(this.RenterHouse);
 
             var nonRentedHouse = new House()
             {
@@ -80,8 +80,8 @@ namespace HouseRentingSystem.Tests.UnitTests
                 Category = new Category() { Name = "Single-Family" }
             };
 
-            await this.repo.AddAsync(nonRentedHouse);
-            await this.repo.SaveChangesAsync();
+            this.repo.Add(nonRentedHouse);
+            this.repo.SaveChanges();
         }
     }
 }
