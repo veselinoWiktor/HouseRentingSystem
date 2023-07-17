@@ -10,10 +10,12 @@ namespace HouseRentingSystem.Controllers
     public class AgentController : Controller
     {
         private readonly IAgentService agentService;
+        private readonly IUserService userService;
 
-        public AgentController(IAgentService agentService)
+        public AgentController(IAgentService agentService, IUserService userService)
         {
             this.agentService = agentService;
+            this.userService = userService;
         }
 
         public async Task<IActionResult> Become()
@@ -42,7 +44,7 @@ namespace HouseRentingSystem.Controllers
                     "Phone number alredy exists. Enter another one.");
             }
 
-            if (await this.agentService.UserHasRents(userId))
+            if (await this.userService.UserHasRents(userId))
             {
                 ModelState.AddModelError("Error",
                     "You should have no rent to become agent!");

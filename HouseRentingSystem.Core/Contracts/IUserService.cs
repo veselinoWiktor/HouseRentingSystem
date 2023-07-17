@@ -12,5 +12,8 @@ namespace HouseRentingSystem.Core.Contracts
         Task<string> UserFullName(string userId);
 
         Task<IEnumerable<UserServiceModel>> All();
+
+        Task<bool> UserHasRents(string userId);
+
     }
 }

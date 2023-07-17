@@ -12,7 +12,6 @@ namespace HouseRentingSystem.Core.Contracts
 
         Task<bool> AgentWithPhoneNumberExists(string phoneNumber);
 
-        Task<bool> UserHasRents(string userId);
 
         Task Create(string userId, string phoneNumber);
 

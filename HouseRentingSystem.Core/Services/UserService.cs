@@ -57,5 +57,12 @@ namespace HouseRentingSystem.Core.Services
 
             return user.FirstName + " " + user.LastName;
         }
+
+        public async Task<bool> UserHasRents(string userId)
+        {
+            return await repo.AllReadonly<House>()
+                .AnyAsync(h => h.RenterId == userId);
+        }
+
     }
 }
