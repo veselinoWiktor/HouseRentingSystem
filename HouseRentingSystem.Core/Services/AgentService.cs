@@ -49,7 +49,7 @@ namespace HouseRentingSystem.Core.Services
                 .AnyAsync(h => h.RenterId == userId);
         }
 
-        public async Task<bool> UserWithPhoneNumberExists(string phoneNumber)
+        public async Task<bool> AgentWithPhoneNumberExists(string phoneNumber)
         {
             return await repo.AllReadonly<Agent>()
                 .AnyAsync(a => a.PhoneNumber == phoneNumber);

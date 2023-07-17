@@ -10,7 +10,7 @@ namespace HouseRentingSystem.Core.Contracts
     {
         Task<bool> ExistsById(string userId);
 
-        Task<bool> UserWithPhoneNumberExists(string phoneNumber);
+        Task<bool> AgentWithPhoneNumberExists(string phoneNumber);
 
         Task<bool> UserHasRents(string userId);
 
