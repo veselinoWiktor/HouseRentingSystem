@@ -7,10 +7,21 @@ namespace HouseRentingSystem.Infrastructure.Data
 {
     public class HouseRentingDbContext : IdentityDbContext<User>
     {
-        public HouseRentingDbContext(DbContextOptions<HouseRentingDbContext> options)
+        private bool seedDb;
+
+        public HouseRentingDbContext(DbContextOptions<HouseRentingDbContext> options, bool seedDb = true)
             : base(options)
         {
-            this.Database.Migrate();
+            if (this.Database.IsRelational())
+            {
+                this.Database.Migrate();
+            }
+            else
+            {
+                this.Database.EnsureCreated();
+            }
+
+            this.seedDb = seedDb;
         }
 
         public DbSet<House> Houses { get; init; } = null!;
@@ -21,10 +32,32 @@ namespace HouseRentingSystem.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new AgentConfiguration());
-            builder.ApplyConfiguration(new CategoryConfiguration());
-            builder.ApplyConfiguration(new HouseConfiguration());
+            builder
+                .Entity<House>()
+                .Property(h => h.PricePerMonth)
+                .HasPrecision(18, 2);
+
+            builder
+                .Entity<House>()
+                .HasOne(h => h.Category)
+                .WithMany(c => c.Houses)
+                .HasForeignKey(h => h.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<House>()
+                .HasOne(h => h.Agent)
+                .WithMany()
+                .HasForeignKey(h => h.AgentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            if (this.seedDb)
+            {
+                builder.ApplyConfiguration(new UserConfiguration());
+                builder.ApplyConfiguration(new AgentConfiguration());
+                builder.ApplyConfiguration(new CategoryConfiguration());
+                builder.ApplyConfiguration(new HouseConfiguration());
+            }
 
             base.OnModelCreating(builder);
         }

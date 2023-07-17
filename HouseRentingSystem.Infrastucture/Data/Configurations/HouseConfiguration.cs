@@ -14,22 +14,6 @@ namespace HouseRentingSystem.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<House> builder)
         {
-            builder
-                .Property(h => h.PricePerMonth)
-                .HasPrecision(18, 2);
-
-            builder
-                .HasOne(h => h.Category)
-                .WithMany(c => c.Houses)
-                .HasForeignKey(h => h.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasOne(h => h.Agent)
-                .WithMany()
-                .HasForeignKey(h => h.AgentId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasData(CreateHouses());
         }
 
