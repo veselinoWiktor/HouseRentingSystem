@@ -42,6 +42,15 @@ namespace HouseRentingSystem.Infrastructure.Common
         }
 
         /// <summary>
+        /// Adds entity to the database
+        /// </summary>
+        /// <param name="entity">Entity to add</param>
+        public void Add<T>(T entity) where T : class
+        {
+            DbSet<T>().Add(entity);
+        }
+
+        /// <summary>
         /// Ads collection of entities to the database
         /// </summary>
         /// <param name="entities">Enumerable list of entities</param>
