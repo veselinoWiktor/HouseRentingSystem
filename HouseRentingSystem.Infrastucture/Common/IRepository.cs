@@ -50,7 +50,7 @@ namespace HouseRentingSystem.Infrastructure.Common
         /// Adds entity to the database
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        public void Add<T>(T entity) where T : class;
+        void Add<T>(T entity) where T : class;
 
         /// <summary>
         /// Ads collection of entities to the database
@@ -97,5 +97,11 @@ namespace HouseRentingSystem.Infrastructure.Common
         /// </summary>
         /// <returns>Error code</returns>
         Task<int> SaveChangesAsync();
+
+        /// <summary>
+        /// Saves all made changes in trasaction
+        /// </summary>
+        /// <returns>Error code</returns>
+        int SaveChanges();
     }
 }

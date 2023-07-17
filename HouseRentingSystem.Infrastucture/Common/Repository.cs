@@ -162,6 +162,15 @@ namespace HouseRentingSystem.Infrastructure.Common
         }
 
         /// <summary>
+        /// Saves all made changes in trasaction
+        /// </summary>
+        /// <returns>Error code</returns>
+        public int SaveChanges()
+        {
+            return this.Context.SaveChanges();
+        }
+
+        /// <summary>
         /// Updates a record in database
         /// </summary>
         /// <param name="entity">Entity for record to be updated</param>
