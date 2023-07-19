@@ -20,10 +20,10 @@ namespace HouseRentingSystem.WebApi.Controllers
         [Produces("application/json")]
         [ProducesResponseType(200, Type = typeof(StatisticsServiceModel))]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetStatistics()
+        public async Task<StatisticsServiceModel> GetStatistics()
         {
             var model = await this.statisticsService.Total();
-            return Ok(model);
+            return model;
         }
     }
 }

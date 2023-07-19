@@ -31,7 +31,7 @@ namespace HouseRentingSystem.Tests.IntegrationTests
             Assert.IsNotNull(result);
 
             //Assert the returned result is a view
-            var viewResult = new ViewResult();
+            var viewResult = result as ViewResult;
             Assert.IsNotNull(viewResult);
         }
     }
